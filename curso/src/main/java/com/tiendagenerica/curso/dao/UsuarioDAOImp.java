@@ -60,4 +60,14 @@ public class UsuarioDAOImp implements UsuarioDAO {
 
         return null;
     }
+
+    @Override
+    public void editar(Usuarios usuario) {
+        Usuarios usuarioEncontrado = entityManager.find(Usuarios.class, usuario.getCedulaUsuario());
+        usuarioEncontrado.setUsuario(usuario.getUsuario());
+        usuarioEncontrado.setEmailUsuario(usuario.getEmailUsuario());
+        usuarioEncontrado.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioEncontrado.setPassword(usuario.getPassword());
+        entityManager.merge(usuarioEncontrado);
+    }
 }

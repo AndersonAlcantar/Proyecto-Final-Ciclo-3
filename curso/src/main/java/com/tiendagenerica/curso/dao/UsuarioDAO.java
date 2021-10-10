@@ -15,4 +15,6 @@ public interface UsuarioDAO {
      void registar(Usuarios usuario);
 
      Usuarios obtenerUsuarioPorCredenciales(Usuarios usuario);
+
+     void editar(Usuarios usuario);
 }

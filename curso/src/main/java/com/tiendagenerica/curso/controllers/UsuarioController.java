@@ -49,14 +49,14 @@ public class UsuarioController {
         usuarioDAO.registar(usuario);
     }
 
-    @RequestMapping(value = "usuario456")
-    public Usuarios editar(){
-        Usuarios usuarios = new Usuarios();
-        usuarios.setEmailUsuario("Andres");
-        usuarios.setNombreUsuario("Colmenares");
-        usuarios.setPassword("andrescolmenares@hotmail.com");
-        usuarios.setUsuario("4024191");
-        return usuarios;
+    @RequestMapping(value = "/api/editar", method = RequestMethod.PUT)
+    public @ResponseBody void editar(/*@RequestHeader(value = "Authorization") String token,*/
+                                     @RequestBody Usuarios usuario){
+        //if(!validarToken(token)) {return;}
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(1, 1024, 1, usuario.getPassword());
+        usuario.setPassword(hash);
+        usuarioDAO.editar(usuario);
     }
 
     //Eliminar usuario
